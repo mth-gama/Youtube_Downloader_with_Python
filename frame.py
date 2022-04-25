@@ -98,14 +98,14 @@ class Ui_MainWindow(object):
     def download(self):
 
         # Download do arquivo em Mp4
-        if self.rb_mp4.isCheckable() == True:
+        if self.rb_mp4.isChecked() == True:
             url = self.txt_link.text()
             titulo = self.txt_titulo.text()
             titulo_mp4 = titulo+'.mp4'
             yt_download(url, titulo_mp4)
 
         # Download do arquivo em Mp3
-        elif self.rb_mp3.isCheckable() == True:
+        elif self.rb_mp3.isChecked() == True:
             try:
                 url = self.txt_link.text()
                 titulo = self.txt_titulo.text()
