@@ -106,10 +106,13 @@ class Ui_MainWindow(object):
 
         # Download do arquivo em Mp3
         elif self.rb_mp3.isCheckable() == True:
-            url = self.txt_link.text()
-            titulo = self.txt_titulo.text()
-            titulo_mp3 = titulo+'.mp3'
-            yt_download(url, titulo_mp3, ismusic=True)
+            try:
+                url = self.txt_link.text()
+                titulo = self.txt_titulo.text()
+                titulo_mp3 = titulo+'.mp3'
+                yt_download(url, titulo_mp3, ismusic=True, codec="mp3")
+            except:
+                pass
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
