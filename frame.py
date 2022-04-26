@@ -9,11 +9,16 @@
 
 
 import youtube
+import pyautogui as pg
 from PyQt5 import QtCore, QtGui, QtWidgets
 from mhyt import yt_download
+from tkinter import *
+from tkinter import ttk
+import os
 
 
 class Ui_MainWindow(object):
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(466, 392)
@@ -102,7 +107,8 @@ class Ui_MainWindow(object):
             url = self.txt_link.text()
             titulo = self.txt_titulo.text()
             titulo_mp4 = titulo+'.mp4'
-            yt_download(url, titulo_mp4)
+            tipo = 'mp4'
+            self.Janela(self.txt_link, self.txt_titulo, tipo, url, titulo_mp4)
 
         # Download do arquivo em Mp3
         elif self.rb_mp3.isChecked() == True:
@@ -110,9 +116,49 @@ class Ui_MainWindow(object):
                 url = self.txt_link.text()
                 titulo = self.txt_titulo.text()
                 titulo_mp3 = titulo+'.mp3'
+                tipo = 'mp3'
+                self.Janela(self.txt_link, self.txt_titulo, tipo)
                 yt_download(url, titulo_mp3, ismusic=True, codec="mp3")
+
             except:
                 pass
+
+    def Janela(self, txt_link, txt_titulo, tipo, url, titulo_mp4):
+        if (txt_titulo.text() == '') | (txt_link.text() == ''):
+            pg.alert('Favor digite o titulo ou link')
+        else:
+            root = Tk()
+            root.title('progressbar...')
+            root.geometry('400x100')
+            root['bg'] = 'black'
+            title = txt_titulo.text()
+            title = Label(
+                root,
+                font='Verdana 10 bold',
+                bg='black',
+                fg='red',
+                text=f'Downloading the file: {title}'
+            ).pack()
+            progress1 = ttk.Progressbar(root, orient=HORIZONTAL,
+                                        length=300, mode='indeterminate')
+            progress1.pack(pady=20)
+            progress1.start(10)
+            root.mainloop()
+            if tipo == 'mp4':
+                print(tipo)
+                # yt_download(url, titulo_mp4)
+
+            # self.caminho = f'.\{txt_titulo}'
+            # self.stop = True
+            # while self.stop == True:
+            #     if os.path.exists(self.caminho):
+            #         pg.alert('Downloading complete!!')
+            #         self.stop = False
+            #     else:
+            #         print('N achou')
+
+    def step(progressbar1):
+        progressbar1.start(10)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
